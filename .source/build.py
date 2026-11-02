@@ -251,10 +251,10 @@ TEMPLATE = '''<!doctype html>
 <meta property="og:image" content="/assets/og.jpg">
 <link rel="alternate" hreflang="pt-BR" href="{alt_pt}">
 <link rel="alternate" hreflang="en" href="{alt_en}">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
-<link rel="icon" href="/assets/favicon-192.png" sizes="192x192" type="image/png">
-<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="icon" href="/assets/favicon.svg?v=2" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png?v=2" sizes="32x32" type="image/png">
+<link rel="icon" href="/assets/favicon-192.png?v=2" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
 <meta name="theme-color" content="#0b0b0c">
 <link rel="preload" href="/assets/fonts/Geist-Medium.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/site.css">
@@ -299,7 +299,7 @@ def nav_html(lang, page):
         cta = f'<a class="nav-cta" href="{url(lang, "cv")}"><span>{t["cv"]}</span><i>{ARROW}</i></a>'
     lang_sw = f'<a class="nav-lang" href="{url(other, page)}"><b class="{"on" if lang=="pt" else ""}">PT</b> / <b class="{"on" if lang=="en" else ""}">EN</b></a>'
     return (f'<header class="nav{" nav-light" if page == "cv" else ""}" role="banner"><div class="nav-in">'
-            f'<a class="nav-brand" href="{home}" data-top aria-label="Nathan Gabriel — início"><span class="dot"></span>Nathan Gabriel</a>'
+            f'<a class="nav-brand" href="{home}" data-top aria-label="Nathan Gabriel — início"><img class="wm wm-l" src="/assets/wordmark-claro.svg" alt="nathan*gabriel" width="111" height="19"><img class="wm wm-d" src="/assets/wordmark-escuro.svg" alt="" aria-hidden="true" width="111" height="19"></a>'
             f'<nav class="nav-links">{links}</nav>'
             f'<div class="nav-right">{lang_sw}{cta}</div>'
             f'<button class="nav-burger" type="button" aria-label="{t["menu"]}" data-menu-toggle><span></span><span></span></button>'

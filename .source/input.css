@@ -110,3 +110,9 @@ body.menu-open .nav-burger{border-color:rgba(255,255,255,.18);background:rgba(25
 .m-cta{align-self:flex-start}
 .m-meta{margin:0;font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:.06em;line-height:1.8;color:#b2b2b7}
 .m-meta a{color:inherit;text-decoration:none}.m-meta span{color:#6e6e73}
+
+.nav-brand .wm{height:19px;width:auto;display:block}
+.nav-brand .wm-d{display:none}
+.nav-light:not(.scrolled) .nav-brand .wm-l{display:none}
+.nav-light:not(.scrolled) .nav-brand .wm-d{display:block}
+@media (max-width:899px){.nav-brand .wm{height:17px}}
