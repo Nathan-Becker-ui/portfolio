@@ -59,8 +59,8 @@ img{display:block}
 .nav-links{display:flex;gap:4px;padding:4px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18)}
 .nav-light:not(.scrolled) .nav-links{background:rgba(11,11,12,.04);border-color:rgba(11,11,12,.12)}
 .nav-links a{font-size:12px;font-weight:500;padding:8px 16px;border-radius:999px;transition:background-color .2s ease,color .2s ease}
-.nav-links a:hover{background:#f4f3f0;color:#0b0b0c}
-.nav-light:not(.scrolled) .nav-links a:hover{background:#0b0b0c;color:#f4f3f0}
+.nav-links a:hover,.nav-links a.active{background:#f4f3f0;color:#0b0b0c}
+.nav-light:not(.scrolled) .nav-links a:hover,.nav-light:not(.scrolled) .nav-links a.active{background:#0b0b0c;color:#f4f3f0}
 .nav-right{display:flex;align-items:center;gap:12px}
 .nav-lang{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.04em;opacity:.6}
 .nav-lang b{font-weight:400}.nav-lang b.on{opacity:1}.nav-lang:hover{opacity:1}
@@ -79,12 +79,7 @@ body.menu-open .nav .nav-in{background:transparent;border-color:transparent;box-
 body.menu-open .nav-burger{border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.08)}
 @media (min-width:900px){
   .nav.scrolled{top:16px}
-  .nav.scrolled .nav-in{max-width:700px;height:52px;padding:0 6px 0 18px}
-  .nav.scrolled .nav-brand{font-size:13px}
-  .nav.scrolled .nav-links{padding:3px}
-  .nav.scrolled .nav-links a{padding:7px 13px;font-size:12px}
-  .nav.scrolled .nav-cta span{padding:10px 16px;font-size:12px}
-  .nav.scrolled .nav-cta i{width:38px;height:38px}
+  .nav.scrolled .nav-in{max-width:780px;height:56px;padding:0 6px 0 22px}
 }
 @media (max-width:899px){
   .nav{top:10px;left:10px;right:10px}

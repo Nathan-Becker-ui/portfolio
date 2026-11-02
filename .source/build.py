@@ -274,7 +274,7 @@ ARROW = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5
 DOWN = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v9M4 8.5L8 12.5l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 def nav_html(lang, page):
     t = NAV_TXT[lang]; home = url(lang, 'home'); other = 'en' if lang == 'pt' else 'pt'
-    links = ''.join(f'<a href="{home}#{k}" data-go="{k}">{t[k]}</a>' for k in ('cases', 'sobre', 'contato'))
+    links = ''.join(f'<a href="{home}#{k}" data-go="{k}"' + (' class="active"' if (k == 'cases' and page not in ('home', 'cv')) else '') + f'>{t[k]}</a>' for k in ('cases', 'sobre', 'contato'))
     if page == 'cv':
         cta = f'<a class="nav-cta" href="/cv/Nathan-Gabriel-Santos-{"CV-PT" if lang == "pt" else "Resume-EN"}.pdf" download><span>{t["pdf"]}</span><i>{DOWN}</i></a>'
     else:

@@ -1,7 +1,17 @@
 (function(){
   var menu = document.querySelector('.menu'), nav = document.querySelector('.nav'), body = document.body;
   function setMenu(o){ menu.classList.toggle('open', o); body.classList.toggle('menu-open', o); menu.setAttribute('aria-hidden', o ? 'false' : 'true'); body.style.overflow = o ? 'hidden' : ''; }
-  function onScroll(){ nav && nav.classList.toggle('scrolled', window.scrollY > 24); }
+  var spyLinks = nav ? nav.querySelectorAll('.nav-links a[data-go]') : [];
+  var isHome = !!document.querySelector('[data-sec]');
+  function spy(){
+    if (!isHome) return; var cur = null, mid = window.innerHeight * 0.4;
+    ['sobre','cases','contato'].forEach(function(id){
+      var els = document.querySelectorAll('[data-sec="'+id+'"]');
+      for (var i=0;i<els.length;i++){ if (els[i].offsetParent === null) continue; var r = els[i].getBoundingClientRect(); if (r.top <= mid && r.bottom > mid) cur = id; }
+    });
+    for (var k=0;k<spyLinks.length;k++) spyLinks[k].classList.toggle('active', spyLinks[k].getAttribute('data-go') === cur);
+  }
+  function onScroll(){ nav && nav.classList.toggle('scrolled', window.scrollY > 24); spy(); }
   window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
   document.addEventListener('click', function(e){
     if (e.target.closest('[data-menu-toggle]')) { e.preventDefault(); setMenu(!menu.classList.contains('open')); return; }
