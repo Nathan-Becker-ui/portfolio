@@ -194,16 +194,16 @@ def link_up(tree, soup, lang, page, view):
     for el in tree.find_all(attrs={'data-name': 'Botão PDF'}):
         a_wrap(el, '/cv/Nathan-Gabriel-Santos-' + ('CV-PT' if lang == 'pt' else 'Resume-EN') + '.pdf', soup, data={'download': ''})
     # mobile menu button
-    for el in tree.find_all(attrs={'data-name': 'Menu'}):
+    for el in tree.find_all(attrs={'data-name': re.compile(r'^(RASTER · )?Menu$')}):
         el['data-menu-open'] = ''
         el['role'] = 'button'; el['aria-label'] = 'Menu'; el['tabindex'] = '0'
-        el['class'] = (el.get('class') or '') + ' cursor-pointer'
+        c = el.get('class') or ''; el['class'] = (' '.join(c) if isinstance(c, list) else c) + ' cursor-pointer z-10'
 
 def link_menu(tree, soup, lang, page):
     home = url(lang, 'home')
-    for el in tree.find_all(attrs={'data-name': 'Fechar'}):
+    for el in tree.find_all(attrs={'data-name': re.compile(r'^(RASTER · )?Fechar$')}):
         el['data-menu-close'] = ''; el['role'] = 'button'; el['aria-label'] = 'Fechar' if lang == 'pt' else 'Close'
-        el['class'] = (el.get('class') or '') + ' cursor-pointer'
+        c = el.get('class') or ''; el['class'] = (' '.join(c) if isinstance(c, list) else c) + ' cursor-pointer z-10'
     for el in tree.find_all(attrs={'data-name': re.compile(r'^Item · ')}):
         t = el['data-name'].split('· ')[1]
         tgt = {'Cases': 'cases', 'Sobre': 'sobre', 'About': 'sobre', 'Contato': 'contato', 'Contact': 'contato'}.get(t)
