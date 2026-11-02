@@ -42,9 +42,9 @@ img{display:block}
 /* ---------- fixed navbar ---------- */
 :root{--nav-pad:max(12px, calc(80px * var(--zd,1) - 20px))}
 .nav{position:fixed;top:12px;left:var(--nav-pad);right:var(--nav-pad);z-index:60;pointer-events:none}
-.nav-in{pointer-events:auto;max-width:1440px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px;padding:0 8px 0 20px;border-radius:999px;border:1px solid transparent;color:#f4f3f0;font-family:Geist,system-ui,sans-serif;transition:max-width .6s cubic-bezier(.2,.8,.2,1),height .6s cubic-bezier(.2,.8,.2,1),padding .6s cubic-bezier(.2,.8,.2,1),background-color .4s ease,border-color .4s ease,box-shadow .4s ease,color .4s ease,backdrop-filter .4s ease}
-.nav{transition:top .6s cubic-bezier(.2,.8,.2,1)}
-.nav-links a,.nav-cta span,.nav-cta i,.nav-brand{transition:all .6s cubic-bezier(.2,.8,.2,1)}
+.nav-in{pointer-events:auto;max-width:min(1440px, calc(100vw - 2 * var(--nav-pad)));margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px;padding:0 8px 0 20px;border-radius:999px;border:1px solid transparent;color:#f4f3f0;font-family:Geist,system-ui,sans-serif;background-color:rgba(11,11,12,0);-webkit-backdrop-filter:blur(0px) saturate(100%);backdrop-filter:blur(0px) saturate(100%);transition:max-width 1s cubic-bezier(.22,1,.36,1),height 1s cubic-bezier(.22,1,.36,1),padding 1s cubic-bezier(.22,1,.36,1),background-color .8s ease,border-color .8s ease,box-shadow .8s ease,color .6s ease,-webkit-backdrop-filter .8s ease,backdrop-filter .8s ease}
+.nav{transition:top 1s cubic-bezier(.22,1,.36,1)}
+.nav-links,.nav-cta span,.nav-brand{transition:background-color .6s ease,border-color .6s ease,color .6s ease}
 .nav.scrolled .nav-in{background:rgba(11,11,12,.55);border-color:rgba(255,255,255,.12);box-shadow:0 12px 40px -12px rgba(0,0,0,.35);-webkit-backdrop-filter:blur(18px) saturate(150%);backdrop-filter:blur(18px) saturate(150%)}
 .nav-light:not(.scrolled) .nav-in{color:#0b0b0c}
 .nav a{color:inherit;text-decoration:none}

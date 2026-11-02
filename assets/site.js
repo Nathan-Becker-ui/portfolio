@@ -11,7 +11,7 @@
     });
     for (var k=0;k<spyLinks.length;k++) spyLinks[k].classList.toggle('active', spyLinks[k].getAttribute('data-go') === cur);
   }
-  function onScroll(){ nav && nav.classList.toggle('scrolled', window.scrollY > 24); spy(); }
+  function onScroll(){ if(nav){var y=window.scrollY,on=nav.classList.contains('scrolled');if(!on&&y>40)nav.classList.add('scrolled');else if(on&&y<8)nav.classList.remove('scrolled');} spy(); }
   window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
   document.addEventListener('click', function(e){
     if (e.target.closest('[data-menu-toggle]')) { e.preventDefault(); setMenu(!menu.classList.contains('open')); return; }
