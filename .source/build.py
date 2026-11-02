@@ -344,6 +344,8 @@ def build():
                         if 'flex' in cl and 'flex-col' not in cl:
                             tx = row.find('div', attrs={'data-name': 'Texto'}, recursive=False)
                             if tx is not None: tx['class'] = tx.get('class', []) + ['stick']
+                for q in t.find_all('p'):
+                    if q.find_parent('p'): q.name = 'span'
                 fix_classes(s); parts.append(str(s))
             ms = BeautifulSoup(str(menu_tree), 'html.parser'); link_menu(ms.find('div'), ms, lang, page); fix_classes(ms)
             title, desc = page_meta(lang, page)
