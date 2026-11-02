@@ -253,7 +253,13 @@ TEMPLATE = '''<!doctype html>
 <meta name="description" content="{desc}">
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
-<meta property="og:image" content="/assets/og.jpg">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.nathangabriel.com.br{canon}">
+<meta property="og:image" content="https://www.nathangabriel.com.br/assets/{ogimg}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://www.nathangabriel.com.br{canon}">
 <link rel="alternate" hreflang="pt-BR" href="{alt_pt}">
 <link rel="alternate" hreflang="en" href="{alt_en}">
 <link rel="icon" href="/assets/favicon.svg?v=2" type="image/svg+xml">
@@ -357,7 +363,7 @@ def build():
             other = 'en' if lang == 'pt' else 'pt'
             bg = 'bg-dark' if page != 'cv' else 'bg-light'
             doc = TEMPLATE.format(htmllang='pt-BR' if lang == 'pt' else 'en', title=html.escape(title), desc=html.escape(desc),
-                                  alt_pt=url('pt', page), alt_en=url('en', page), desk=parts[0], mob=parts[1], menu=menu_html(lang, page), bodyclass=bg, nav=nav_html(lang, page))
+                                  alt_pt=url('pt', page), alt_en=url('en', page), desk=parts[0], mob=parts[1], menu=menu_html(lang, page), bodyclass=bg, nav=nav_html(lang, page), canon=url(lang, page), ogimg='og.jpg' if lang == 'pt' else 'og-en.jpg')
             doc = doc.replace('/assets/site.css"', '/assets/site.css?v=' + VER + '"').replace('/assets/site.js"', '/assets/site.js?v=' + VER + '"')
             doc = re.sub(r'</span>\s+<span', '</span><span', doc)
             p = out_path(lang, page); os.makedirs(os.path.dirname(p), exist_ok=True)
