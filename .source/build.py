@@ -272,6 +272,20 @@ NAV_TXT = {
 }
 ARROW = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 11L11 5M6 5h5v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
 DOWN = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v9M4 8.5L8 12.5l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+def menu_html(lang, page):
+    t = NAV_TXT[lang]; home = url(lang, 'home')
+    items = [('sobre', t['sobre'], f'{home}#sobre'), ('cases', t['cases'], f'{home}#cases'), ('contato', t['contato'], f'{home}#contato'), ('cv', t['cv'], url(lang, 'cv'))]
+    rows = ''.join(f'<a class="m-item" href="{h}"' + (f' data-go="{k}"' if k != 'cv' else '') + f'><span>{lbl}</span><em>{str(i+1).zfill(2)}</em></a>' for i, (k, lbl, h) in enumerate(items))
+    pt_on, en_on = ('on', '') if lang == 'pt' else ('', 'on')
+    avail = 'Disponível para novos projetos' if lang == 'pt' else 'Available for new projects'
+    cta = 'Enviar e-mail' if lang == 'pt' else 'Send email'
+    loc = 'Londrina — Brasil · GMT−3' if lang == 'pt' else 'Londrina — Brazil · GMT−3'
+    return (f'<div class="m-wrap"><div class="m-top"><p class="m-label">MENU</p><nav class="m-list">{rows}</nav>'
+            f'<div class="m-lang"><a class="{pt_on}" href="{url("pt", page)}">PT</a><a class="{en_on}" href="{url("en", page)}">EN</a></div></div>'
+            f'<div class="m-foot"><p class="m-avail"><i></i>{avail}</p>'
+            f'<a class="nav-cta m-cta" href="mailto:{EMAIL}"><span>{cta}</span><i>{ARROW}</i></a>'
+            f'<p class="m-meta">{EMAIL.upper()}<br><a href="{LINKEDIN}" target="_blank" rel="noopener">LINKEDIN ↗</a>&nbsp;&nbsp; <a href="{BEHANCE}" target="_blank" rel="noopener">BEHANCE ↗</a><br><span>{loc.upper()}</span></p></div></div>')
+
 def nav_html(lang, page):
     t = NAV_TXT[lang]; home = url(lang, 'home'); other = 'en' if lang == 'pt' else 'pt'
     links = ''.join(f'<a href="{home}#{k}" data-go="{k}"' + (' class="active"' if (k == 'cases' and page not in ('home', 'cv')) else '') + f'>{t[k]}</a>' for k in ('sobre', 'cases', 'contato'))
@@ -325,7 +339,7 @@ def build():
             other = 'en' if lang == 'pt' else 'pt'
             bg = 'bg-dark' if page != 'cv' else 'bg-light'
             doc = TEMPLATE.format(htmllang='pt-BR' if lang == 'pt' else 'en', title=html.escape(title), desc=html.escape(desc),
-                                  alt_pt=url('pt', page), alt_en=url('en', page), desk=parts[0], mob=parts[1], menu=str(ms), bodyclass=bg, nav=nav_html(lang, page))
+                                  alt_pt=url('pt', page), alt_en=url('en', page), desk=parts[0], mob=parts[1], menu=menu_html(lang, page), bodyclass=bg, nav=nav_html(lang, page))
             doc = doc.replace('/assets/site.css"', '/assets/site.css?v=' + VER + '"').replace('/assets/site.js"', '/assets/site.js?v=' + VER + '"')
             doc = re.sub(r'</span>\s+<span', '</span><span', doc)
             p = out_path(lang, page); os.makedirs(os.path.dirname(p), exist_ok=True)
