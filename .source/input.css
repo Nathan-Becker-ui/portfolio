@@ -20,7 +20,7 @@
 @tailwind utilities;
 
 html,body{margin:0;padding:0;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
-html,body{overflow-x:hidden}
+html,body{overflow-x:clip}
 .v-d,.v-m{overflow:clip}
 body.bg-dark{background:#f4f3f0}
 body.bg-light{background:#f4f3f0}
@@ -116,3 +116,4 @@ body.menu-open .nav-burger{border-color:rgba(255,255,255,.18);background:rgba(25
 .nav-light:not(.scrolled) .nav-brand .wm-l{display:none}
 .nav-light:not(.scrolled) .nav-brand .wm-d{display:block}
 @media (max-width:899px){.nav-brand .wm{height:17px}}
+.v-d .stick{position:sticky;top:calc(112px / var(--zd,1));align-self:flex-start}
