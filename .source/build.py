@@ -252,6 +252,10 @@ TEMPLATE = '''<!doctype html>
 <link rel="alternate" hreflang="pt-BR" href="{alt_pt}">
 <link rel="alternate" hreflang="en" href="{alt_en}">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="/assets/favicon-192.png" sizes="192x192" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<meta name="theme-color" content="#0b0b0c">
 <link rel="preload" href="/assets/fonts/Geist-Medium.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="/assets/site.css">
 </head>
