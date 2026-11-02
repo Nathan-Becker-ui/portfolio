@@ -5,6 +5,8 @@
   window.addEventListener('scroll', onScroll, {passive:true}); onScroll();
   document.addEventListener('click', function(e){
     if (e.target.closest('[data-menu-toggle]')) { e.preventDefault(); setMenu(!menu.classList.contains('open')); return; }
+    var t = e.target.closest('a[data-top]');
+    if (t && t.pathname === location.pathname) { e.preventDefault(); setMenu(false); window.scrollTo({top:0, behavior:'smooth'}); history.replaceState(null,'',location.pathname); return; }
     var a = e.target.closest('a[data-go]');
     if (a && a.pathname === location.pathname) { e.preventDefault(); setMenu(false); go(a.getAttribute('data-go')); history.replaceState(null,'','#'+a.getAttribute('data-go')); return; }
     if (e.target.closest('.menu a')) setMenu(false);

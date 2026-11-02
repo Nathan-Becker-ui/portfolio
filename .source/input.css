@@ -48,7 +48,9 @@ img{display:block}
 /* ---------- fixed navbar ---------- */
 :root{--nav-pad:max(12px, calc(80px * var(--zd,1) - 20px))}
 .nav{position:fixed;top:12px;left:var(--nav-pad);right:var(--nav-pad);z-index:60;pointer-events:none}
-.nav-in{pointer-events:auto;display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px;padding:0 8px 0 20px;border-radius:999px;border:1px solid transparent;color:#f4f3f0;font-family:Geist,system-ui,sans-serif;transition:background-color .35s ease,border-color .35s ease,box-shadow .35s ease,color .35s ease,backdrop-filter .35s ease}
+.nav-in{pointer-events:auto;max-width:1440px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px;padding:0 8px 0 20px;border-radius:999px;border:1px solid transparent;color:#f4f3f0;font-family:Geist,system-ui,sans-serif;transition:max-width .6s cubic-bezier(.2,.8,.2,1),height .6s cubic-bezier(.2,.8,.2,1),padding .6s cubic-bezier(.2,.8,.2,1),background-color .4s ease,border-color .4s ease,box-shadow .4s ease,color .4s ease,backdrop-filter .4s ease}
+.nav{transition:top .6s cubic-bezier(.2,.8,.2,1)}
+.nav-links a,.nav-cta span,.nav-cta i,.nav-brand{transition:all .6s cubic-bezier(.2,.8,.2,1)}
 .nav.scrolled .nav-in{background:rgba(11,11,12,.55);border-color:rgba(255,255,255,.12);box-shadow:0 12px 40px -12px rgba(0,0,0,.35);-webkit-backdrop-filter:blur(18px) saturate(150%);backdrop-filter:blur(18px) saturate(150%)}
 .nav-light:not(.scrolled) .nav-in{color:#0b0b0c}
 .nav a{color:inherit;text-decoration:none}
@@ -75,6 +77,15 @@ body.menu-open .nav-burger span:nth-child(1){top:21px;transform:rotate(45deg)}
 body.menu-open .nav-burger span:nth-child(2){top:21px;transform:rotate(-45deg)}
 body.menu-open .nav .nav-in{background:transparent;border-color:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;color:#f4f3f0}
 body.menu-open .nav-burger{border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.08)}
+@media (min-width:900px){
+  .nav.scrolled{top:16px}
+  .nav.scrolled .nav-in{max-width:700px;height:52px;padding:0 6px 0 18px}
+  .nav.scrolled .nav-brand{font-size:13px}
+  .nav.scrolled .nav-links{padding:3px}
+  .nav.scrolled .nav-links a{padding:7px 13px;font-size:12px}
+  .nav.scrolled .nav-cta span{padding:10px 16px;font-size:12px}
+  .nav.scrolled .nav-cta i{width:38px;height:38px}
+}
 @media (max-width:899px){
   .nav{top:10px;left:10px;right:10px}
   .nav-in{height:56px;padding:0 6px 0 16px}

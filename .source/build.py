@@ -281,7 +281,7 @@ def nav_html(lang, page):
         cta = f'<a class="nav-cta" href="{url(lang, "cv")}"><span>{t["cv"]}</span><i>{ARROW}</i></a>'
     lang_sw = f'<a class="nav-lang" href="{url(other, page)}"><b class="{"on" if lang=="pt" else ""}">PT</b> / <b class="{"on" if lang=="en" else ""}">EN</b></a>'
     return (f'<header class="nav{" nav-light" if page == "cv" else ""}" role="banner"><div class="nav-in">'
-            f'<a class="nav-brand" href="{home}"><span class="dot"></span>Nathan Gabriel Santos</a>'
+            f'<a class="nav-brand" href="{home}" data-top aria-label="Nathan Gabriel — início"><span class="dot"></span>Nathan Gabriel</a>'
             f'<nav class="nav-links">{links}</nav>'
             f'<div class="nav-right">{lang_sw}{cta}</div>'
             f'<button class="nav-burger" type="button" aria-label="{t["menu"]}" data-menu-toggle><span></span><span></span></button>'
