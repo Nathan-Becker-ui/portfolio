@@ -70,6 +70,11 @@ def jsx_to_html(code):
         props = re.findall(r'(\w+):\s*"([^"]*)"', inner)
         css = ';'.join(re.sub(r'([A-Z])', lambda x: '-' + x.group(1).lower(), k) + ':' + v for k, v in props)
         return 'style="' + html.escape(css) + '"'
+    def svgrad(m):
+        stops = re.findall(r"stop-color='([^']*)' offset='([^']*)'", m.group(0))
+        g = ', '.join(f"{c} {float(o)*100:g}%" for c, o in stops)
+        return 'backgroundImage: "radial-gradient(closest-side, ' + g + ')"'
+    body = re.sub(r'backgroundImage: \\?"url\(\\+"data:image/svg\+xml;utf8,<svg.*?</svg>\\+"\)\\?"', svgrad, body, flags=re.S)
     body = re.sub(r'style=\{\{(.*?)\}\}', style, body, flags=re.S)
 
     def src(m):
