@@ -200,6 +200,9 @@ def link_up(tree, soup, lang, page, view):
         c = el.get('class') or ''; el['class'] = (' '.join(c) if isinstance(c, list) else c) + ' cursor-pointer z-10'
 
 def link_menu(tree, soup, lang, page):
+    for p in tree.find_all('p'):
+        if p.get_text(strip=True).startswith('PDF'):
+            p.decompose()
     home = url(lang, 'home')
     for el in tree.find_all(attrs={'data-name': re.compile(r'^(RASTER · )?Fechar$')}):
         el['data-menu-close'] = ''; el['role'] = 'button'; el['aria-label'] = 'Fechar' if lang == 'pt' else 'Close'
@@ -253,6 +256,7 @@ TEMPLATE = '''<!doctype html>
 <link rel="stylesheet" href="/assets/site.css">
 </head>
 <body class="{bodyclass}">
+{nav}
 <script>(function(){{function z(){{var w=document.documentElement.clientWidth;var r=document.documentElement.style;r.setProperty("--zd",w/1440);r.setProperty("--zm",w/390);}}z();addEventListener("resize",z);}})();</script>
 <div class="v-d">{desk}</div>
 <div class="v-m">{mob}</div>
@@ -261,6 +265,27 @@ TEMPLATE = '''<!doctype html>
 </body>
 </html>
 '''
+
+NAV_TXT = {
+    'pt': {'cases': 'Cases', 'sobre': 'Sobre', 'contato': 'Contato', 'cv': 'Currículo', 'pdf': 'Baixar PDF', 'menu': 'Abrir menu'},
+    'en': {'cases': 'Cases', 'sobre': 'About', 'contato': 'Contact', 'cv': 'Résumé', 'pdf': 'Download PDF', 'menu': 'Open menu'},
+}
+ARROW = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M5 11L11 5M6 5h5v5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+DOWN = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v9M4 8.5L8 12.5l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+def nav_html(lang, page):
+    t = NAV_TXT[lang]; home = url(lang, 'home'); other = 'en' if lang == 'pt' else 'pt'
+    links = ''.join(f'<a href="{home}#{k}" data-go="{k}">{t[k]}</a>' for k in ('cases', 'sobre', 'contato'))
+    if page == 'cv':
+        cta = f'<a class="nav-cta" href="/cv/Nathan-Gabriel-Santos-{"CV-PT" if lang == "pt" else "Resume-EN"}.pdf" download><span>{t["pdf"]}</span><i>{DOWN}</i></a>'
+    else:
+        cta = f'<a class="nav-cta" href="{url(lang, "cv")}"><span>{t["cv"]}</span><i>{ARROW}</i></a>'
+    lang_sw = f'<a class="nav-lang" href="{url(other, page)}"><b class="{"on" if lang=="pt" else ""}">PT</b> / <b class="{"on" if lang=="en" else ""}">EN</b></a>'
+    return (f'<header class="nav{" nav-light" if page == "cv" else ""}" role="banner"><div class="nav-in">'
+            f'<a class="nav-brand" href="{home}"><span class="dot"></span>Nathan Gabriel Santos</a>'
+            f'<nav class="nav-links">{links}</nav>'
+            f'<div class="nav-right">{lang_sw}{cta}</div>'
+            f'<button class="nav-burger" type="button" aria-label="{t["menu"]}" data-menu-toggle><span></span><span></span></button>'
+            f'</div></header>')
 
 def build():
     pages = load_pages()
@@ -284,7 +309,8 @@ def build():
             other = 'en' if lang == 'pt' else 'pt'
             bg = 'bg-dark' if page != 'cv' else 'bg-light'
             doc = TEMPLATE.format(htmllang='pt-BR' if lang == 'pt' else 'en', title=html.escape(title), desc=html.escape(desc),
-                                  alt_pt=url('pt', page), alt_en=url('en', page), desk=parts[0], mob=parts[1], menu=str(ms), bodyclass=bg)
+                                  alt_pt=url('pt', page), alt_en=url('en', page), desk=parts[0], mob=parts[1], menu=str(ms), bodyclass=bg, nav=nav_html(lang, page))
+            doc = re.sub(r'</span>\s+<span', '</span><span', doc)
             p = out_path(lang, page); os.makedirs(os.path.dirname(p), exist_ok=True)
             open(p, 'w').write(doc); built.append(p)
     print('built', len(built))

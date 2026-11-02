@@ -44,3 +44,48 @@ img{display:block}
 .menu.open a:nth-of-type(4) [data-name^="Item · "]{transition-delay:.2s}
 @media (min-width: 900px){ .menu{display:none} }
 @media (prefers-reduced-motion: reduce){ *{transition:none!important} }
+
+/* ---------- fixed navbar ---------- */
+:root{--nav-pad:max(12px, calc(80px * var(--zd,1) - 20px))}
+.nav{position:fixed;top:12px;left:var(--nav-pad);right:var(--nav-pad);z-index:60;pointer-events:none}
+.nav-in{pointer-events:auto;display:flex;align-items:center;justify-content:space-between;gap:16px;height:60px;padding:0 8px 0 20px;border-radius:999px;border:1px solid transparent;color:#f4f3f0;font-family:Geist,system-ui,sans-serif;transition:background-color .35s ease,border-color .35s ease,box-shadow .35s ease,color .35s ease,backdrop-filter .35s ease}
+.nav.scrolled .nav-in{background:rgba(11,11,12,.55);border-color:rgba(255,255,255,.12);box-shadow:0 12px 40px -12px rgba(0,0,0,.35);-webkit-backdrop-filter:blur(18px) saturate(150%);backdrop-filter:blur(18px) saturate(150%)}
+.nav-light:not(.scrolled) .nav-in{color:#0b0b0c}
+.nav a{color:inherit;text-decoration:none}
+.nav-brand{display:flex;align-items:center;gap:8px;font-weight:500;font-size:14px;letter-spacing:-.005em;white-space:nowrap}
+.nav-brand .dot{width:12px;height:12px;border-radius:50%;background:#ff4b1f;flex:none}
+.nav-links{display:flex;gap:4px;padding:4px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18)}
+.nav-light:not(.scrolled) .nav-links{background:rgba(11,11,12,.04);border-color:rgba(11,11,12,.12)}
+.nav-links a{font-size:12px;font-weight:500;padding:8px 16px;border-radius:999px;transition:background-color .2s ease,color .2s ease}
+.nav-links a:hover{background:#f4f3f0;color:#0b0b0c}
+.nav-light:not(.scrolled) .nav-links a:hover{background:#0b0b0c;color:#f4f3f0}
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-lang{font-family:'Geist Mono',monospace;font-size:12px;letter-spacing:.04em;opacity:.6}
+.nav-lang b{font-weight:400}.nav-lang b.on{opacity:1}.nav-lang:hover{opacity:1}
+.nav-cta{display:flex;align-items:center;gap:4px}
+.nav-cta span{font-size:13px;font-weight:500;padding:12px 20px;border-radius:999px;background:#f4f3f0;color:#0b0b0c}
+.nav-light:not(.scrolled) .nav-cta span{background:#0b0b0c;color:#f4f3f0}
+.nav-cta i{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#ff4b1f;color:#fff;transition:transform .3s ease}
+.nav-cta:hover i{transform:rotate(45deg)}
+.nav-burger{display:none;position:relative;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);cursor:pointer;padding:0;-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.nav-burger span{position:absolute;left:14px;width:16px;height:1.5px;border-radius:1px;background:currentColor;transition:transform .35s cubic-bezier(.2,.7,.2,1),top .35s ease}
+.nav-burger span:nth-child(1){top:17px}.nav-burger span:nth-child(2){top:25px}
+.nav-light:not(.scrolled) .nav-burger{border-color:rgba(11,11,12,.15);background:rgba(11,11,12,.04)}
+body.menu-open .nav-burger span:nth-child(1){top:21px;transform:rotate(45deg)}
+body.menu-open .nav-burger span:nth-child(2){top:21px;transform:rotate(-45deg)}
+body.menu-open .nav .nav-in{background:transparent;border-color:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;color:#f4f3f0}
+body.menu-open .nav-burger{border-color:rgba(255,255,255,.18);background:rgba(255,255,255,.08)}
+@media (max-width:899px){
+  .nav{top:10px;left:10px;right:10px}
+  .nav-in{height:56px;padding:0 6px 0 16px}
+  .nav-links,.nav-right{display:none}
+  .nav-burger{display:block;color:inherit}
+}
+/* hide the static navs that came from the design */
+.v-d [data-name="Hero"] > [data-name="Nav"],
+.v-d [data-name="Hero"] > [data-name="Cabeçalho"],
+.v-d [data-name^="WEB · "] > [data-name="Nav"],
+.v-m [data-name="Hero"] > a > [data-name="Brand"],
+.v-m [data-name="Hero"] > [data-name="RASTER · Menu"],
+.v-m [data-name^="WEB · "] > [data-name="Nav"],
+.menu a > [data-name="Brand"], .menu [data-name="RASTER · Fechar"]{visibility:hidden!important}
