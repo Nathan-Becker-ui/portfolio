@@ -287,6 +287,9 @@ def nav_html(lang, page):
             f'<button class="nav-burger" type="button" aria-label="{t["menu"]}" data-menu-toggle><span></span><span></span></button>'
             f'</div></header>')
 
+import time
+VER = os.environ.get('VER') or str(int(time.time()))
+
 def build():
     pages = load_pages()
     os.makedirs(OUT, exist_ok=True)
@@ -310,6 +313,7 @@ def build():
             bg = 'bg-dark' if page != 'cv' else 'bg-light'
             doc = TEMPLATE.format(htmllang='pt-BR' if lang == 'pt' else 'en', title=html.escape(title), desc=html.escape(desc),
                                   alt_pt=url('pt', page), alt_en=url('en', page), desk=parts[0], mob=parts[1], menu=str(ms), bodyclass=bg, nav=nav_html(lang, page))
+            doc = doc.replace('/assets/site.css"', '/assets/site.css?v=' + VER + '"').replace('/assets/site.js"', '/assets/site.js?v=' + VER + '"')
             doc = re.sub(r'</span>\s+<span', '</span><span', doc)
             p = out_path(lang, page); os.makedirs(os.path.dirname(p), exist_ok=True)
             open(p, 'w').write(doc); built.append(p)
