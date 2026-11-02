@@ -300,6 +300,19 @@ def build():
             d = pages.get((lang, page, 'd')); m = pages.get((lang, page, 'm'))
             if d is None or m is None:
                 print('missing', lang, page, d is None, m is None); continue
+            if lang == 'pt' and page == 'home':
+                en_d = pages.get(('en', 'home', 'd'))
+                eh = BeautifulSoup(str(en_d), 'html.parser').find(attrs={'data-name': 'Hero/Texto'})
+                tr = {'Open to international opportunities': 'Aberto a oportunidades internacionais',
+                      'crafting digital experiences that convert.': 'criando experiências digitais que convertem.',
+                      'Graphic Design graduate with 6+ years building products, websites and brands for agencies and companies.': 'Formado em Design Gráfico, com 6+ anos criando produtos, sites e marcas para agências e empresas.',
+                      'View cases': 'Ver cases'}
+                for node in eh.find_all(string=True):
+                    k = node.strip()
+                    if k in tr:
+                        node.replace_with(node.replace(k, tr[k]))
+                ds = BeautifulSoup(str(d), 'html.parser'); old = ds.find(attrs={'data-name': 'Hero/Texto'})
+                old.replace_with(eh); d = ds.find('div')
             parts = []
             for tree, view in ((d, 'd'), (m, 'm')):
                 src = str(tree)
