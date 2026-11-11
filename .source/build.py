@@ -103,6 +103,7 @@ def load_pages():
     pages = {}
     for f in sorted(glob.glob(os.path.join(SRC, '*.txt'))):
         code = json.load(open(f))[0]['text']
+        code = re.sub(r'(data-node-id="(?:416:67|420:49|418:231|421:3356)"[^>]*>)\s*06\s*<', r'\g<1>+25<', code)
         body, consts = jsx_to_html(code)
         soup = BeautifulSoup(body, 'html.parser')
         bundle = soup.find('div')
