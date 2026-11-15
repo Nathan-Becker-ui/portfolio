@@ -24,6 +24,7 @@ CASES = [  # key, PT slug, EN slug, PT title, EN title
     ('03', 'nova-era-do-audiovisual', 'new-era-of-audiovisual', 'A Nova Era do Audiovisual', 'The New Era of Audiovisual'),
     ('04', 'redes-sociais', 'social-media', 'Redes Sociais', 'Social Media'),
     ('05', 'identidades-visuais', 'visual-identities', 'Identidades Visuais', 'Visual Identities'),
+    ('07', 'design-system', 'design-system', 'Design System', 'Design System'),
 ]
 
 def url(lang, page):
