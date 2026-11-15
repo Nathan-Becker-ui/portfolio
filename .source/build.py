@@ -100,11 +100,16 @@ def fix_classes(soup):
         el['class'] = cls
 
 # ---------------------------------------------------------------- page assembly
+NEXT_FIX = {'417:3071': 'PRÓXIMO CASE · 07', '417:3073': 'Design System', '419:3071': 'NEXT CASE · 07', '419:3073': 'Design System',
+            '421:3114': 'PRÓXIMO CASE · 07', '421:3116': 'Design System', '423:3114': 'NEXT CASE · 07', '423:3116': 'Design System'}
+
 def load_pages():
     pages = {}
     for f in sorted(glob.glob(os.path.join(SRC, '*.txt'))):
         code = json.load(open(f))[0]['text']
         code = re.sub(r'(data-node-id="(?:416:67|420:49|418:231|421:3356)"[^>]*>)\s*06\s*<', r'\g<1>+25<', code)
+        for nid, txt in NEXT_FIX.items():
+            code = re.sub(r'(data-node-id="' + nid + r'"[^>]*>)([^<]*)(<)', lambda m: m.group(1) + txt + m.group(3), code)
         body, consts = jsx_to_html(code)
         soup = BeautifulSoup(body, 'html.parser')
         bundle = soup.find('div')
