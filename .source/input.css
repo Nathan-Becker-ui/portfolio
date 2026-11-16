@@ -119,3 +119,8 @@ body.menu-open .nav-burger{border-color:rgba(255,255,255,.18);background:rgba(25
 .nav-light:not(.scrolled) .nav-brand .wm-d{display:block}
 @media (max-width:899px){.nav-brand .wm{height:17px}}
 .v-d .stick{position:sticky;top:calc(112px / var(--zd,1));align-self:flex-start}
+
+/* case hero: lift the text block so it fits in short/wide viewports */
+.pg-case .v-d [data-name="Hero"] > p,
+.pg-case .v-d [data-name="Hero"] > [data-name="Linha"] { transform: translateY(calc(var(--hs, 0px) * -1)); }
+.pg-case .v-d [data-name="Hero"] > [data-name="RASTER · Fundo · Kept"] { transform-origin: 100% 0; transform: scale(var(--hk, 1)); }

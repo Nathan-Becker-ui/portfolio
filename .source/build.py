@@ -281,7 +281,7 @@ TEMPLATE = '''<!doctype html>
 </head>
 <body class="{bodyclass}">
 {nav}
-<script>(function(){{function z(){{var w=document.documentElement.clientWidth;var r=document.documentElement.style;r.setProperty("--zd",w/1440);r.setProperty("--zm",w/390);}}z();addEventListener("resize",z);}})();</script>
+<script>(function(){{function z(){{var w=document.documentElement.clientWidth;var r=document.documentElement.style;r.setProperty("--zd",w/1440);r.setProperty("--zm",w/390);var hs=Math.max(0,900+24-innerHeight*1440/w);r.setProperty("--hs",hs+"px");r.setProperty("--hk",Math.max(.6,1-hs/900));}}z();addEventListener("resize",z);}})();</script>
 <div class="v-d">{desk}</div>
 <div class="v-m">{mob}</div>
 <div class="menu" aria-hidden="true">{menu}</div>
@@ -370,7 +370,7 @@ def build():
             ms = BeautifulSoup(str(menu_tree), 'html.parser'); link_menu(ms.find('div'), ms, lang, page); fix_classes(ms)
             title, desc = page_meta(lang, page)
             other = 'en' if lang == 'pt' else 'pt'
-            bg = 'bg-dark' if page != 'cv' else 'bg-light'
+            bg = ('bg-dark' if page != 'cv' else 'bg-light') + (' pg-case' if page not in ('home', 'cv') else '')
             doc = TEMPLATE.format(htmllang='pt-BR' if lang == 'pt' else 'en', title=html.escape(title), desc=html.escape(desc),
                                   alt_pt=url('pt', page), alt_en=url('en', page), desk=parts[0], mob=parts[1], menu=menu_html(lang, page), bodyclass=bg, nav=nav_html(lang, page), canon=url(lang, page), ogimg='og.jpg' if lang == 'pt' else 'og-en.jpg')
             doc = doc.replace('/assets/site.css"', '/assets/site.css?v=' + VER + '"').replace('/assets/site.js"', '/assets/site.js?v=' + VER + '"')
