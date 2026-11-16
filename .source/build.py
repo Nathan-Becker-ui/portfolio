@@ -258,6 +258,30 @@ def reorder_home(t, view):
         for c in cards:
             (cta.insert_before(c) if cta else box.append(c))
 
+NUM = {k: str(i + 1).zfill(2) for i, k in enumerate(HOME_ORDER)}  # displayed number = position on the home
+def _retext(el, fn):
+    for node in list(el.find_all(string=True)):
+        new = fn(str(node))
+        if new != str(node): node.replace_with(new)
+def renumber(t, lang, page):
+    if page == 'home':
+        for k in HOME_ORDER:
+            for c in t.find_all(attrs={'data-name': 'Case ' + k}):
+                _retext(c, lambda x, k=k: NUM[k] if x.strip() == k else re.sub(r'CASE ' + k + r'\b', 'CASE ' + NUM[k], x))
+        return
+    if page not in NUM: return
+    h = t.find(attrs={'data-name': 'Hero'})
+    if h: _retext(h, lambda x: re.sub(r'CASE 0\d\b', 'CASE ' + NUM[page], x))
+    nxt = HOME_ORDER[(HOME_ORDER.index(page) + 1) % len(HOME_ORDER)]
+    c = [c for c in CASES if c[0] == nxt][0]
+    for el in t.find_all(attrs={'data-name': 'Próximo case'}):
+        ps = [p for p in el.find_all('p') if p.get_text(strip=True)]
+        if len(ps) >= 2:
+            ps[0].string = ('PRÓXIMO CASE · ' if lang == 'pt' else 'NEXT CASE · ') + NUM[nxt]
+            ps[1].string = c[3] if lang == 'pt' else c[4]
+        a = el.find_parent('a')
+        if a: a['href'] = url(lang, nxt)
+
 META = {
     'pt': {'home': ('Nathan Gabriel Santos — UX/UI & Product Designer', 'Portfólio de Nathan Gabriel Santos, UX/UI & Product Designer em Londrina, Brasil. Produtos digitais, sites, landing pages e marcas.'),
            'cv': ('Currículo — Nathan Gabriel Santos', 'Currículo de Nathan Gabriel Santos, UX/UI & Product Designer.')},
@@ -378,6 +402,7 @@ def build():
                 s = BeautifulSoup(src, 'html.parser'); t = s.find('div')
                 link_up(t, s, lang, page, view)
                 if page == 'home': reorder_home(t, view)
+                renumber(t, lang, page)
                 if view == 'd' and page not in ('home', 'cv'):
                     for row in t.find_all('div', attrs={'data-name': re.compile(r'^Linha')}):
                         cl = row.get('class', [])
