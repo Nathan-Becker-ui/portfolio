@@ -24,6 +24,7 @@ CASES = [  # key, PT slug, EN slug, PT title, EN title
     ('03', 'nova-era-do-audiovisual', 'new-era-of-audiovisual', 'A Nova Era do Audiovisual', 'The New Era of Audiovisual'),
     ('04', 'redes-sociais', 'social-media', 'Redes Sociais', 'Social Media'),
     ('05', 'identidades-visuais', 'visual-identities', 'Identidades Visuais', 'Visual Identities'),
+    ('06', 'kept', 'kept', 'Kept', 'Kept'),
     ('07', 'design-system', 'design-system', 'Design System', 'Design System'),
 ]
 
@@ -100,8 +101,8 @@ def fix_classes(soup):
         el['class'] = cls
 
 # ---------------------------------------------------------------- page assembly
-NEXT_FIX = {'417:3071': 'PRÓXIMO CASE · 07', '417:3073': 'Design System', '419:3071': 'NEXT CASE · 07', '419:3073': 'Design System',
-            '421:3114': 'PRÓXIMO CASE · 07', '421:3116': 'Design System', '423:3114': 'NEXT CASE · 07', '423:3116': 'Design System'}
+NEXT_FIX = {'417:3071': 'PRÓXIMO CASE · 06', '417:3073': 'Kept', '419:3071': 'NEXT CASE · 06', '419:3073': 'Kept',
+            '421:3114': 'PRÓXIMO CASE · 06', '421:3116': 'Kept', '423:3114': 'NEXT CASE · 06', '423:3116': 'Kept'}
 
 def load_pages():
     pages = {}
