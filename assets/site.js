@@ -43,3 +43,4 @@
   }
   window.addEventListener('load', function(){ if (location.hash) setTimeout(function(){ go(location.hash.slice(1)); }, 60); });
 })();
+;(function(){var c=document.querySelector('.scroll-cue');if(!c)return;function u(){c.classList.toggle('gone',scrollY>80);}u();addEventListener('scroll',u,{passive:true});})();

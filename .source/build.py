@@ -296,6 +296,8 @@ def page_meta(lang, page):
     title = c[3] if lang == 'pt' else c[4]
     return (title + ' — Nathan Gabriel Santos', (('Case de ' if lang == 'pt' else 'Case study: ') + title + ' — Nathan Gabriel Santos, UX/UI & Product Designer.'))
 
+SCROLL_CUE = '<a class="scroll-cue" href="#cases" data-go="cases" aria-label="Rolar"><svg width="18" height="18" viewBox="0 0 16 16" fill="none"><path d="M8 3v9M4 8.5L8 12.5l4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>'
+
 TEMPLATE = '''<!doctype html>
 <html lang="{htmllang}">
 <head>
@@ -324,10 +326,11 @@ TEMPLATE = '''<!doctype html>
 </head>
 <body class="{bodyclass}">
 {nav}
-<script>(function(){{function z(){{var w=document.documentElement.clientWidth;var r=document.documentElement.style;r.setProperty("--zd",w/1440);r.setProperty("--zm",w/390);var hs=Math.max(0,900+24-innerHeight*1440/w);r.setProperty("--hs",hs+"px");r.setProperty("--hk",Math.max(.6,1-hs/900));}}z();addEventListener("resize",z);}})();</script>
+<script>(function(){{function z(){{var w=document.documentElement.clientWidth;var r=document.documentElement.style;r.setProperty("--zd",w/1440);r.setProperty("--zm",w/390);var hs=Math.max(0,900+24-innerHeight*1440/w);r.setProperty("--hs",hs+"px");r.setProperty("--hk",Math.max(.6,1-hs/900));var ht=Math.min(hs,72);r.setProperty("--ht",ht+"px");r.setProperty("--hn",Math.min(1,Math.max(.5,(940-hs-(566-ht+28))/288)));}}z();addEventListener("resize",z);}})();</script>
 <div class="v-d">{desk}</div>
 <div class="v-m">{mob}</div>
 <div class="menu" aria-hidden="true">{menu}</div>
+{cue}
 <script src="/assets/site.js" defer></script>
 </body>
 </html>
@@ -415,9 +418,9 @@ def build():
             ms = BeautifulSoup(str(menu_tree), 'html.parser'); link_menu(ms.find('div'), ms, lang, page); fix_classes(ms)
             title, desc = page_meta(lang, page)
             other = 'en' if lang == 'pt' else 'pt'
-            bg = ('bg-dark' if page != 'cv' else 'bg-light') + (' pg-case' if page not in ('home', 'cv') else '')
+            bg = ('bg-dark' if page != 'cv' else 'bg-light') + (' pg-case' if page not in ('home', 'cv') else '') + (' pg-home' if page == 'home' else '')
             doc = TEMPLATE.format(htmllang='pt-BR' if lang == 'pt' else 'en', title=html.escape(title), desc=html.escape(desc),
-                                  alt_pt=url('pt', page), alt_en=url('en', page), desk=parts[0], mob=parts[1], menu=menu_html(lang, page), bodyclass=bg, nav=nav_html(lang, page), canon=url(lang, page), ogimg='og.jpg' if lang == 'pt' else 'og-en.jpg')
+                                  alt_pt=url('pt', page), alt_en=url('en', page), desk=parts[0], mob=parts[1], menu=menu_html(lang, page), bodyclass=bg, cue=(SCROLL_CUE if page == 'home' else ''), nav=nav_html(lang, page), canon=url(lang, page), ogimg='og.jpg' if lang == 'pt' else 'og-en.jpg')
             doc = doc.replace('/assets/site.css"', '/assets/site.css?v=' + VER + '"').replace('/assets/site.js"', '/assets/site.js?v=' + VER + '"')
             doc = re.sub(r'</span>\s+<span', '</span><span', doc)
             if lang == 'en':
