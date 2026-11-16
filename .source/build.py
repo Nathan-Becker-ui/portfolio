@@ -239,6 +239,25 @@ def link_menu(tree, soup, lang, page):
             a.name = 'p'; a.attrs.pop('href', None); a.attrs.pop('target', None)
         a_wrap(el, 'mailto:' + EMAIL, soup)
 
+HOME_ORDER = ['06', '07', '01', '02', '03', '04', '05']  # product design cases first
+def reorder_home(t, view):
+    def card(k):
+        el = t.find(attrs={'data-name': 'Case ' + k})
+        return el.parent if el and el.parent.name == 'a' else el
+    cards = [card(k) for k in HOME_ORDER]
+    if view == 'd':
+        L = t.find(attrs={'data-name': 'Coluna esquerda'}); R = t.find(attrs={'data-name': 'Coluna direita'})
+        cta = R.find(attrs={'data-name': 'CTA tile'}, recursive=False) or L.find(attrs={'data-name': 'CTA tile'}, recursive=False)
+        for c in cards: c.extract()
+        if cta: cta.extract()
+        for i, c in enumerate(cards): (L if i % 2 == 0 else R).append(c)
+        if cta: R.append(cta)
+    else:
+        box = cards[0].parent; cta = box.find(attrs={'data-name': 'CTA tile'}, recursive=False)
+        for c in cards: c.extract()
+        for c in cards:
+            (cta.insert_before(c) if cta else box.append(c))
+
 META = {
     'pt': {'home': ('Nathan Gabriel Santos — UX/UI & Product Designer', 'Portfólio de Nathan Gabriel Santos, UX/UI & Product Designer em Londrina, Brasil. Produtos digitais, sites, landing pages e marcas.'),
            'cv': ('Currículo — Nathan Gabriel Santos', 'Currículo de Nathan Gabriel Santos, UX/UI & Product Designer.')},
@@ -358,6 +377,7 @@ def build():
                     src = src.replace('tracking-[-4.8px] w-[760px]', 'tracking-[-4.8px] w-full')
                 s = BeautifulSoup(src, 'html.parser'); t = s.find('div')
                 link_up(t, s, lang, page, view)
+                if page == 'home': reorder_home(t, view)
                 if view == 'd' and page not in ('home', 'cv'):
                     for row in t.find_all('div', attrs={'data-name': re.compile(r'^Linha')}):
                         cl = row.get('class', [])
