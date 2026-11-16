@@ -156,3 +156,10 @@ body.menu-open .nav-burger{border-color:rgba(255,255,255,.18);background:rgba(25
   mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); }
 .glow-on .glow-cap::before, .glow-on .glow-cap::after { opacity: 1; }
 @media (hover: none), (prefers-reduced-motion: reduce) { .glow-cap::before, .glow-cap::after { display: none; } }
+
+/* animated mesh shader behind the cases section */
+.has-shader { position: relative; isolation: isolate; }
+.has-shader > *:not(.shader-bg) { position: relative; z-index: 1; }
+.shader-bg { position: absolute; inset: 0; z-index: 0; clip-path: inset(0 round 40px); pointer-events: none; }
+.v-m .shader-bg { clip-path: inset(0 round 32px); }
+.shader-bg canvas { position: sticky; top: 0; display: block; width: 100%; }
