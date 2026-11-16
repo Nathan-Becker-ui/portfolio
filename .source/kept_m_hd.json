@@ -1,0 +1,34 @@
+{
+ "src": {
+  "pt": {
+   "39a4e3c702a5e8": "2423f8e2cef7e7",
+   "14970f4c0e5bee": "71ded3750304c2",
+   "fae3cb76153b2f": "2db34b85c06bbf",
+   "cfb609edefd8e9": "6d6d286f04bc8b",
+   "30726c46c5001e": "e5baeb1831b72d",
+   "6bd6c6ed76b5ea": "864bc94bf1d556",
+   "c6b0ef6973e9a4": "31c9258d49c2eb"
+  },
+  "en": {
+   "78e9e65db7ddf9": "475f5a2565307c",
+   "971d3d59f2d0d3": "31b96641f1c055",
+   "fae3cb76153b2f": "2db34b85c06bbf",
+   "7ce18c295bf704": "c52f4199d809a1",
+   "e3e68f05ecf354": "15fe499cf607c3",
+   "8e53c753e97694": "6f7a6634ec4cf2",
+   "e0c05f3e3d2bce": "20308ae1742260"
+  }
+ },
+ "phones": {
+  "pt": [
+   "/assets/img/027d776688c1aa.webp",
+   "/assets/img/0f4a8b9ecefc28.webp",
+   "/assets/img/4de14058448a63.webp"
+  ],
+  "en": [
+   "/assets/img/77cee6b04a24a4.webp",
+   "/assets/img/6359087e1ce593.webp",
+   "/assets/img/a2f36a05e218a7.webp"
+  ]
+ }
+}

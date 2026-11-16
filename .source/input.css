@@ -198,3 +198,7 @@ html.loading .load-ov.out { opacity: 0; pointer-events: none; }
 .v-m [data-name="Próximo case"] [data-name="Linha"] > div::after { content: ""; position: absolute; inset: 0; margin: auto; width: 20px; height: 20px; background: #fff;
   -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7M8 7h9v9'/%3E%3C/svg%3E") center/contain no-repeat;
   mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7M8 7h9v9'/%3E%3C/svg%3E") center/contain no-repeat; }
+
+/* Kept mobile: patient phones stacked */
+.kept-phones { width: 350px; display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 28px 0; border-radius: 16px; background: #ddefe5; flex-shrink: 0; }
+.kept-phone { width: 270px; height: auto; border-radius: 28px; box-shadow: 0 18px 40px rgba(15,61,51,.18); }

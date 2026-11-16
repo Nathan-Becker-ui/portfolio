@@ -282,6 +282,19 @@ def renumber(t, lang, page):
         a = el.find_parent('a')
         if a: a['href'] = url(lang, nxt)
 
+KEPT_HD = json.load(open(os.path.join(ROOT, 'kept_m_hd.json'))) if os.path.exists(os.path.join(ROOT, 'kept_m_hd.json')) else None
+def kept_mobile_hd(doc, lang):
+    # mobile Kept case: use the hi-res desktop renders, and stack the 3 patient phones vertically
+    if not KEPT_HD: return doc
+    i = doc.find('<div class="v-m">')
+    head, mob = doc[:i], doc[i:]
+    for a, b in KEPT_HD['src'][lang].items(): mob = mob.replace('/assets/img/%s.webp' % a, '/assets/img/%s.webp' % b)
+    ms = BeautifulSoup(mob, 'html.parser'); r = ms.find(attrs={'data-name': 'RASTER · Imagem · Confirmação'})
+    if r:
+        imgs = ''.join('<img alt="" loading="lazy" decoding="async" src="%s" class="kept-phone">' % u for u in KEPT_HD['phones'][lang])
+        r.replace_with(BeautifulSoup('<div class="kept-phones" data-name="Telas · paciente">%s</div>' % imgs, 'html.parser'))
+    return head + str(ms)
+
 META = {
     'pt': {'home': ('Nathan Gabriel Santos — UX/UI & Product Designer', 'Portfólio de Nathan Gabriel Santos, UX/UI & Product Designer em Londrina, Brasil. Produtos digitais, sites, landing pages e marcas.'),
            'cv': ('Currículo — Nathan Gabriel Santos', 'Currículo de Nathan Gabriel Santos, UX/UI & Product Designer.')},
@@ -437,6 +450,7 @@ def build():
             doc = re.sub(r'</span>\s+<span', '</span><span', doc)
             if lang == 'en':
                 for a, b in EN_SWAP.items(): doc = doc.replace(a, b)
+            if page == '06': doc = kept_mobile_hd(doc, lang)
             p = out_path(lang, page); os.makedirs(os.path.dirname(p), exist_ok=True)
             open(p, 'w').write(doc); built.append(p)
     print('built', len(built))
