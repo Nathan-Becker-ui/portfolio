@@ -397,6 +397,15 @@ def build():
                         node.replace_with(node.replace(k, tr[k]))
                 ds = BeautifulSoup(str(d), 'html.parser'); old = ds.find(attrs={'data-name': 'Hero/Texto'})
                 old.replace_with(eh); d = ds.find('div')
+            if lang == 'en' and page == 'home':  # EN mobile hero = PT mobile hero layout, translated
+                pm = BeautifulSoup(str(pages.get(('pt', 'home', 'm'))), 'html.parser').find(attrs={'data-name': 'Hero'})
+                trm = {'Formado em Design Gráfico, com 6+ anos criando produtos, sites e marcas para agências e empresas.': 'Graphic Design graduate with 6+ years building products, websites and brands for agencies and companies.',
+                       'LONDRINA — BRASIL · GMT−3 · REMOTO': 'LONDRINA — BRAZIL · GMT−3 · REMOTE', 'Ver cases': 'View cases',
+                       'criando experiências digitais que convertem.': 'crafting digital experiences that convert.'}
+                for node in pm.find_all(string=True):
+                    k = node.strip()
+                    if k in trm: node.replace_with(node.replace(k, trm[k]))
+                ms = BeautifulSoup(str(m), 'html.parser'); ms.find(attrs={'data-name': 'Hero'}).replace_with(pm); m = ms.find('div')
             parts = []
             for tree, view in ((d, 'd'), (m, 'm')):
                 src = str(tree)

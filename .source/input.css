@@ -142,3 +142,4 @@ body.menu-open .nav-burger{border-color:rgba(255,255,255,.18);background:rgba(25
 .scroll-cue.gone { opacity: 0; visibility: hidden; }
 @keyframes cue-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
 @media (prefers-reduced-motion: reduce) { .scroll-cue { animation: none; } }
+.pg-home .v-m [data-name="Hero"] > p, .pg-home .v-m [data-name="Hero"] > a:last-of-type > * { transform: translateY(-64px); }
