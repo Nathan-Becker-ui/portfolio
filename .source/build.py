@@ -12,6 +12,7 @@ from bs4 import BeautifulSoup, NavigableString
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(ROOT, 'src')
 OUT = os.path.join(ROOT, 'dist')
+EN_SWAP = json.load(open(os.path.join(ROOT, 'en_swap.json'))) if os.path.exists(os.path.join(ROOT, 'en_swap.json')) else {}  # EN screenshots of Kept screens
 ASSET_MAP = json.load(open(os.path.join(ROOT, 'asset_map.json'))) if os.path.exists(os.path.join(ROOT, 'asset_map.json')) else {}
 EMAIL = 'mdt.nathan@gmail.com'
 LINKEDIN = 'https://www.linkedin.com/in/nathan-gabriel-santos-7225582a6'
@@ -374,6 +375,8 @@ def build():
                                   alt_pt=url('pt', page), alt_en=url('en', page), desk=parts[0], mob=parts[1], menu=menu_html(lang, page), bodyclass=bg, nav=nav_html(lang, page), canon=url(lang, page), ogimg='og.jpg' if lang == 'pt' else 'og-en.jpg')
             doc = doc.replace('/assets/site.css"', '/assets/site.css?v=' + VER + '"').replace('/assets/site.js"', '/assets/site.js?v=' + VER + '"')
             doc = re.sub(r'</span>\s+<span', '</span><span', doc)
+            if lang == 'en':
+                for a, b in EN_SWAP.items(): doc = doc.replace(a, b)
             p = out_path(lang, page); os.makedirs(os.path.dirname(p), exist_ok=True)
             open(p, 'w').write(doc); built.append(p)
     print('built', len(built))
