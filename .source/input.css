@@ -124,3 +124,4 @@ body.menu-open .nav-burger{border-color:rgba(255,255,255,.18);background:rgba(25
 .pg-case .v-d [data-name="Hero"] > p,
 .pg-case .v-d [data-name="Hero"] > [data-name="Linha"] { transform: translateY(calc(var(--hs, 0px) * -1)); }
 .pg-case .v-d [data-name="Hero"] > [data-name="RASTER · Fundo · Kept"] { transform-origin: 100% 0; transform: scale(var(--hk, 1)); }
+.pg-case .v-d [data-name="Hero"] { height: calc(900px - var(--hs, 0px)) !important; }
