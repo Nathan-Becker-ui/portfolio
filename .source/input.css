@@ -189,7 +189,7 @@ html.loading .load-ov.out { opacity: 0; pointer-events: none; }
 @media (prefers-reduced-motion: reduce) { .load-app, .load-ast { animation: none; } }
 
 /* mobile next-case card */
-.v-m :has(> a > [data-name="Próximo case"]), .v-m :has(> [data-name="Próximo case"]) { padding: 40px 12px 28px !important; }
+.v-m a:has(> [data-name="Próximo case"]) { display: block; width: 100%; padding: 8px 12px 28px; box-sizing: border-box; }
 .v-m [data-name="Próximo case"] { border-radius: 28px !important; padding: 48px 24px 32px !important; gap: 20px !important; }
 .v-m [data-name="Próximo case"] [data-name="Linha"] { gap: 32px; }
 .v-m [data-name="Próximo case"] [data-name="Linha"] > p { height: auto !important; width: 100% !important; line-height: 1.05 !important; white-space: normal; }
