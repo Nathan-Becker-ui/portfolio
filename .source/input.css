@@ -144,3 +144,15 @@ body.menu-open .nav-burger{border-color:rgba(255,255,255,.18);background:rgba(25
 @media (prefers-reduced-motion: reduce) { .scroll-cue { animation: none; } }
 .pg-home .v-m [data-name="Hero"] > p, .pg-home .v-m [data-name="Hero"] > a:last-of-type > * { transform: translateY(-64px); }
 .pg-home .v-m [data-name="Hero"] { height: 807px !important; }
+
+/* spotlight glow on case cards (port of GlowCard: border + soft light follow the pointer) */
+.glow-cap::before, .glow-cap::after { content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 5;
+  opacity: 0; transition: opacity .35s ease; }
+.glow-cap::before { /* soft light over the cover */
+  background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 122, 82, .35), transparent 65%); mix-blend-mode: screen; }
+.glow-cap::after { /* lit border */
+  padding: 2px; background: radial-gradient(360px circle at var(--mx, 50%) var(--my, 50%), #fff1ea, #ff4b1f 30%, rgba(255,75,31,0) 75%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0); -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0); }
+.glow-on .glow-cap::before, .glow-on .glow-cap::after { opacity: 1; }
+@media (hover: none), (prefers-reduced-motion: reduce) { .glow-cap::before, .glow-cap::after { display: none; } }
