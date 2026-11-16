@@ -177,3 +177,13 @@ html.intro .intro-ov.out { opacity: 0; transform: scale(1.03); pointer-events: n
 @keyframes intro-out { from { opacity: 1; transform: scale(1); filter: blur(0); } to { opacity: 0; transform: scale(.7); filter: blur(8px); } }
 @keyframes intro-wm { to { opacity: 1; filter: blur(0); clip-path: inset(0 0 0 0); transform: translate(-50%, -50%); } }
 @media (prefers-reduced-motion: reduce) { .intro-app, .intro-ast, .intro-wm { animation-duration: .01s !important; animation-delay: 0s !important; } }
+
+/* loading screen (later visits): looping symbol until the page has loaded */
+.load-ov { display: none; }
+html.loading .load-ov { display: flex; position: fixed; inset: 0; z-index: 9998; align-items: center; justify-content: center; background: #0b0b0c; transition: opacity .5s ease; }
+html.loading .load-ov.out { opacity: 0; pointer-events: none; }
+.load-app { opacity: 1; transform: none; animation: load-breathe 1.6s ease-in-out infinite; }
+.load-ast { animation: load-spin 1.6s cubic-bezier(.65,0,.25,1) infinite; }
+@keyframes load-spin { from { transform: rotate(0); } to { transform: rotate(360deg); } }
+@keyframes load-breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(.94); } }
+@media (prefers-reduced-motion: reduce) { .load-app, .load-ast { animation: none; } }
