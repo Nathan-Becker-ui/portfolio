@@ -7,14 +7,14 @@ var FS="precision mediump float;\nuniform vec3 u_colors[8];uniform vec4 u_scene,
 "float vd=length(uv-0.5)*1.41421356;col*=1.0-u_vignette*smoothstep(0.35,1.0,vd);col+=(grainHash(gl_FragCoord.xy+vec2(u_seed*17.0,u_seed*31.0))-0.5)*u_grain;gl_FragColor=vec4(clamp(col,0.0,1.0),1.0);}";
 var VS="attribute vec2 a;void main(){gl_Position=vec4(a,0.0,1.0);}";
 // brand orange palette, low -> high
-var COLS=[0.043,0.043,0.047, 0.230,0.060,0.025, 0.700,0.190,0.070, 0.090,0.090,0.098, 0,0,0,0,0,0,0,0,0,0,0,0];
+var COLS=[0.043,0.043,0.047, 0.500,0.110,0.030, 1.000,0.294,0.122, 0.180,0.050,0.020, 0,0,0,0,0,0,0,0,0,0,0,0];
 
 var cv=ov.querySelector('canvas'),gl=cv.getContext('webgl',{antialias:false}),raf=0,t0=performance.now(),run=true;
 if(gl){var S=function(t,s){var o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return o;};var pr=gl.createProgram();gl.attachShader(pr,S(gl.VERTEX_SHADER,VS));gl.attachShader(pr,S(gl.FRAGMENT_SHADER,FS));gl.linkProgram(pr);
  if(gl.getProgramParameter(pr,gl.LINK_STATUS)){gl.useProgram(pr);var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);var al=gl.getAttribLocation(pr,'a');gl.enableVertexAttribArray(al);gl.vertexAttribPointer(al,2,gl.FLOAT,false,0,0);
  var U=function(n){return gl.getUniformLocation(pr,n);};gl.uniform3fv(U('u_colors'),COLS);gl.uniform4f(U('u_shape'),1.10,0.34,0.50,0.0);gl.uniform4f(U('u_surface'),2.40,0.96,-0.10,0.96);gl.uniform4f(U('u_finish'),0.0,0.36,0.026,0.07);gl.uniform4f(U('u_transform'),1453.0,0,0,0);gl.uniform4f(U('u_space'),0,0,0,0);gl.uniform4f(U('u_cursor'),0,2.0,0.65,0.46);
- var us=U('u_scene'),d=Math.min(devicePixelRatio||1,2)*.5;cv.width=Math.round(innerWidth*d);cv.height=Math.round(innerHeight*d);gl.viewport(0,0,cv.width,cv.height);
+ var us=U('u_scene'),d=Math.min(devicePixelRatio||1,2)*.5;d=Math.min(devicePixelRatio||1,2);cv.width=Math.round(120*d);cv.height=Math.round(120*d);gl.viewport(0,0,cv.width,cv.height);
  var loop=function(n){gl.uniform4f(us,cv.width,cv.height,((n-t0)/1000)*0.73,4.0);gl.drawArrays(gl.TRIANGLES,0,3);if(run&&!document.hidden)raf=requestAnimationFrame(loop);};raf=requestAnimationFrame(loop);}}
-var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,minT=reduce?300:3400,loaded=document.readyState==='complete';
+var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches,minT=reduce?300:3700,loaded=document.readyState==='complete';
 function end(){ov.classList.add('out');try{localStorage.setItem('ng-intro','1')}catch(e){}setTimeout(function(){run=false;cancelAnimationFrame(raf);document.documentElement.classList.remove('intro');ov.remove();},900);}
 var go=function(){var w=Math.max(0,minT-(performance.now()-t0));setTimeout(end,w);};if(loaded)go();else addEventListener('load',go);setTimeout(end,7000);})();

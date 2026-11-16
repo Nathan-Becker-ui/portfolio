@@ -326,7 +326,7 @@ TEMPLATE = '''<!doctype html>
 <script>try{{if(!localStorage.getItem("ng-intro"))document.documentElement.classList.add("intro")}}catch(e){{}}</script>
 </head>
 <body class="{bodyclass}">
-<div class="intro-ov" aria-hidden="true"><canvas class="intro-bg"></canvas><div class="intro-mark"><div class="intro-app"><svg class="intro-ast" viewBox="0 0 64 64"><path fill="#ff4b1f" transform="matrix(0.08911 0 0 -0.08911 10.658 83.594)" d="M380 740 449 620 355 579 449 538 380 418 297 479 309 377H170L182 479L99 418L30 538L124 579L30 620L99 740L182 679L170 781H309L297 679Z"/></svg></div><img class="intro-wm" src="/assets/wordmark-claro.svg" alt="" width="240"></div></div>
+<div class="intro-ov" aria-hidden="true"><div class="intro-mark"><div class="intro-app"><canvas class="intro-bg"></canvas><svg class="intro-ast" viewBox="0 0 64 64"><path fill="#ff4b1f" transform="matrix(0.08911 0 0 -0.08911 10.658 83.594)" d="M380 740 449 620 355 579 449 538 380 418 297 479 309 377H170L182 479L99 418L30 538L124 579L30 620L99 740L182 679L170 781H309L297 679Z"/></svg></div><img class="intro-wm" src="/assets/wordmark-claro.svg" alt="" width="240"></div></div>
 {nav}
 <script>(function(){{function z(){{var w=document.documentElement.clientWidth;var r=document.documentElement.style;r.setProperty("--zd",w/1440);r.setProperty("--zm",w/390);var hs=Math.max(0,900+24-innerHeight*1440/w);r.setProperty("--hs",hs+"px");r.setProperty("--hk",Math.max(.6,1-hs/900));var ht=Math.min(hs,72);r.setProperty("--ht",ht+"px");r.setProperty("--hn",Math.min(1,Math.max(.5,(940-hs-(566-ht+28))/288)));}}z();addEventListener("resize",z);}})();</script>
 <div class="v-d">{desk}</div>

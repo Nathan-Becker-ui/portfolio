@@ -162,17 +162,18 @@ body.menu-open .nav-burger{border-color:rgba(255,255,255,.18);background:rgba(25
 html.intro { overflow: hidden; }
 html.intro .intro-ov { display: flex; position: fixed; inset: 0; z-index: 9999; align-items: center; justify-content: center; background: #0b0b0c;
   transition: opacity .7s cubic-bezier(.6,0,.2,1), transform .9s cubic-bezier(.6,0,.2,1); }
-.intro-bg { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; animation: intro-fade 1.2s ease .1s forwards; }
-.intro-mark { position: relative; display: flex; flex-direction: column; align-items: center; }
-.intro-app { width: 112px; height: 112px; border-radius: 28px; background: #151516; border: 1px solid rgba(255,255,255,.1);
-  box-shadow: 0 30px 60px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.06); display: flex; align-items: center; justify-content: center;
-  opacity: 0; transform: scale(.6); animation: intro-pop .8s cubic-bezier(.2,1.4,.4,1) .2s forwards, intro-up .7s cubic-bezier(.6,0,.2,1) 1.7s forwards; }
-.intro-ast { width: 96px; height: 96px; animation: intro-spin 1.3s cubic-bezier(.65,0,.25,1) .45s both; }
-.intro-wm { position: absolute; top: 100%; margin-top: 4px; width: 240px; height: auto; opacity: 0; transform: translateY(14px); animation: intro-wm .7s cubic-bezier(.2,.8,.2,1) 1.95s forwards; }
-html.intro .intro-ov.out { opacity: 0; transform: scale(1.04); pointer-events: none; }
-@keyframes intro-fade { to { opacity: 1; } }
+.intro-mark { position: relative; display: flex; align-items: center; justify-content: center; width: 320px; height: 140px; }
+.intro-app { position: relative; overflow: hidden; width: 120px; height: 120px; border-radius: 30px; background: #151516; border: 1px solid rgba(255,255,255,.1);
+  box-shadow: 0 30px 60px rgba(0,0,0,.45); display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: scale(.6); animation: intro-pop .8s cubic-bezier(.2,1.4,.4,1) .15s forwards, intro-out .6s cubic-bezier(.6,0,.2,1) 1.85s forwards; }
+.intro-bg { position: absolute; inset: 0; width: 100%; height: 100%; }
+.intro-ast { position: relative; width: 100px; height: 100px; animation: intro-spin 1.3s cubic-bezier(.65,0,.25,1) .35s both; filter: drop-shadow(0 4px 10px rgba(0,0,0,.35)); }
+.intro-ast path { fill: #f4f3f0; }
+.intro-wm { position: absolute; left: 50%; top: 50%; width: 300px; height: auto; transform: translate(-50%, -40%); opacity: 0; filter: blur(10px);
+  clip-path: inset(0 100% 0 0); animation: intro-wm 1s cubic-bezier(.2,.8,.2,1) 2.25s forwards; }
+html.intro .intro-ov.out { opacity: 0; transform: scale(1.03); pointer-events: none; }
 @keyframes intro-pop { to { opacity: 1; transform: scale(1); } }
 @keyframes intro-spin { from { transform: rotate(-180deg) scale(.4); } 70% { transform: rotate(15deg) scale(1.08); } to { transform: rotate(0) scale(1); } }
-@keyframes intro-up { from { opacity: 1; transform: scale(1); } to { opacity: 1; transform: translateY(-36px) scale(.78); } }
-@keyframes intro-wm { to { opacity: 1; transform: translateY(-20px); } }
-@media (prefers-reduced-motion: reduce) { .intro-app, .intro-ast, .intro-wm, .intro-bg { animation-duration: .01s !important; animation-delay: 0s !important; } }
+@keyframes intro-out { from { opacity: 1; transform: scale(1); filter: blur(0); } to { opacity: 0; transform: scale(.7); filter: blur(8px); } }
+@keyframes intro-wm { to { opacity: 1; filter: blur(0); clip-path: inset(0 0 0 0); transform: translate(-50%, -50%); } }
+@media (prefers-reduced-motion: reduce) { .intro-app, .intro-ast, .intro-wm { animation-duration: .01s !important; animation-delay: 0s !important; } }
