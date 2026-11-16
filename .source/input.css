@@ -135,9 +135,9 @@ body.menu-open .nav-burger{border-color:rgba(255,255,255,.18);background:rgba(25
 
 /* floating scroll cue */
 .scroll-cue { position: fixed; left: 50%; bottom: 28px; z-index: 40; width: 48px; height: 48px; margin-left: -24px; border-radius: 999px;
-  display: flex; align-items: center; justify-content: center; color: #f4f3f0; background: rgba(255,255,255,.08);
+  display: flex; align-items: center; justify-content: center; color: #f4f3f0; background: rgba(11,11,12,.32);
   border: 1px solid rgba(255,255,255,.18); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
-  animation: cue-float 2s ease-in-out infinite; transition: opacity .35s, visibility .35s; }
+  animation: cue-float 2s ease-in-out infinite; box-shadow: 0 8px 24px rgba(0,0,0,.28), 0 2px 6px rgba(0,0,0,.18); transition: opacity .35s, visibility .35s; }
 .scroll-cue:hover { background: #ff4b1f; border-color: #ff4b1f; }
 .scroll-cue.gone { opacity: 0; visibility: hidden; }
 @keyframes cue-float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(8px); } }
